@@ -524,7 +524,22 @@ class Request {
         }
         return in_array($etag, $this->ifNoneMatch);
     }
-    
+
+    /**
+     * Return the highest priority accept format based on provided fomats for a resouce
+     * @param str[] provided set of provided accepted formats
+     * @return str The best format match
+     */
+    function bestFormat(array $provided) {
+        foreach ($this->accept as $_a) {
+            foreach ($_a as $_f) {
+                if (in_array($_f, $provided)) {
+                    return $_f;
+                }
+            }
+        }
+        return false;
+    }
 }
 
 /**
